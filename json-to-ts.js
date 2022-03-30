@@ -26,7 +26,7 @@ class JsonToClass {
     classContent += this.init(json)
     classContent += '  }\n'
     classContent += '}\n'
-    classContent += `\nexport default ${name}`
+    classContent += `\nexport default ${name}\n`
     this.generateFile(filepath, classContent)
   }
   generateFile(filepath, content) {
@@ -89,15 +89,15 @@ class JsonToClass2 extends JsonToClass {
     const name = this.getClassName(filepath)
     let classContent = `class ${name} {\n`
     classContent += `  constructor(${this.getDefault(json)}) {}\n`
-    classContent += '\n  static fromJSON(json: any) {\n'
+    classContent += '\n  static fromJSON(json: any): ${name} | null {\n'
     classContent += '    if (!json) return null\n'
-    classContent += `    return new ${name}( ${Object.keys(json).map(k => `json.${k},`).join(' ').replace(/,$/, '')} )\n`
+    classContent += `    return new ${name}(${Object.keys(json).map(k => `json.${k},`).join(' ').replace(/,$/, '')})\n`
     classContent += '  }\n'
     classContent += '\n  toJSON() {\n'
     classContent += `    return { ${this.getToMap(json)} }\n`
     classContent += '  }\n'
     classContent += '}\n'
-    classContent += `\nexport default ${name}`
+    classContent += `\nexport default ${name}\n`
     super.generateFile(filepath, classContent)
   }
   getDefault(json) {
@@ -107,8 +107,8 @@ class JsonToClass2 extends JsonToClass {
       const type = getType(val)
       obj += ` public ${getField(key)}: ${type} = ${getDefaultValue(type)},`
     }
-    obj = obj.replace(/,$/, ' ')
-    return obj
+    obj = obj.replace(/,$/, '')
+    return obj.trim()
   }
   getToMap(json) {
     const { getType, getField, getDefaultValue } = this
