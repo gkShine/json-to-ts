@@ -1,0 +1,28 @@
+{
+  "name": "json-to-ts",
+  "version": "1.0.0",
+  "description": "generate typescript class from json",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "json-to-ts": "json-to-ts.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com/gkShine/json-to-ts.git"
+  },
+  "keywords": [
+    "webpack",
+    "typescript",
+    "generate",
+    "json"
+  ],
+  "author": "shine <ls@gokuai.cn>",
+  "license": "MIT",
+  "devDependencies": {
+    "glob": "^7.1.2",
+    "minimist": "^1.2.0"
+  }
+}
