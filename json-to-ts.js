@@ -89,7 +89,7 @@ class JsonToClass2 extends JsonToClass {
     const name = this.getClassName(filepath)
     let classContent = `class ${name} {\n`
     classContent += `  constructor(${this.getDefault(json)}) {}\n`
-    classContent += '\n  static fromJSON(json: any): ${name} | null {\n'
+    classContent += `\n  static fromJSON(json: any): ${name} | null {\n`
     classContent += '    if (!json) return null\n'
     classContent += `    return new ${name}(${Object.keys(json).map(k => `json.${k},`).join(' ').replace(/,$/, '')})\n`
     classContent += '  }\n'
