@@ -59,10 +59,9 @@ class JsonToClass {
     }
   }
   getDefault(json) {
-    const { getType, getDefaultValue } = this
     let obj = '{'
     for(const [key, val] of Object.entries(json)) {
-      obj += ` ${key}: ${getDefaultValue(getType(val))},`
+      obj += ` ${key}: ${this.getDefaultValue(this.getType(val))},`
     }
     obj = obj.replace(/,$/, ' ')
     obj += '}'
@@ -89,8 +88,7 @@ class JsonToClass2 extends JsonToClass {
     const name = this.getClassName(filepath)
     let classContent = `class ${name} {\n`
     classContent += `  constructor(${this.getDefault(json)}) {}\n`
-    classContent += `\n  static fromJSON(json: any): ${name} | null {\n`
-    classContent += '    if (!json) return null\n'
+    classContent += `\n  static fromJSON(json: any): ${name} {\n`
     classContent += `    return new ${name}(${Object.keys(json).map(k => `json.${k},`).join(' ').replace(/,$/, '')})\n`
     classContent += '  }\n'
     classContent += '\n  toJSON() {\n'
@@ -101,20 +99,18 @@ class JsonToClass2 extends JsonToClass {
     super.generateFile(filepath, classContent)
   }
   getDefault(json) {
-    const { getType, getField, getDefaultValue } = this
     let obj = ''
     for(const [key, val] of Object.entries(json)) {
-      const type = getType(val)
-      obj += ` public ${getField(key)}: ${type} = ${getDefaultValue(type)},`
+      const type = this.getType(val)
+      obj += ` public ${this.getField(key)}: ${type} = ${this.getDefaultValue(type)},`
     }
     obj = obj.replace(/,$/, '')
     return obj.trim()
   }
   getToMap(json) {
-    const { getType, getField, getDefaultValue } = this
     let obj = ''
     for(const [key, val] of Object.entries(json)) {
-      obj += `${key}: this.${getField(key)} ?? ${getDefaultValue(getType(val))}, `
+      obj += `${key}: this.${this.getField(key)} ?? ${this.getDefaultValue(this.getType(val))}, `
     }
     obj = obj.trim().replace(/,$/, '')
     return obj
