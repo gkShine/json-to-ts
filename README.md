@@ -11,7 +11,7 @@
 ```
 
 ## Install
-`npm i json-to-ts --save-dev`
+`npm i json2tsclass --save-dev`
 
 ## Run
 1. add a script (see example package.json)
