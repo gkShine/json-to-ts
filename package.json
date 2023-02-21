@@ -1,6 +1,6 @@
 {
   "name": "json2tsclass",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "generate typescript class from json",
   "main": "index.js",
   "scripts": {
