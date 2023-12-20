@@ -73,6 +73,8 @@ class JsonToClass {
         return 0
       case 'string':
         return "''"
+      case 'boolean':
+        return false
       default:
         if (type.includes('[]')) {
           return '[]'
