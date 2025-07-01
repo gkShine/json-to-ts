@@ -1,7 +1,8 @@
 #!/usr/bin/env node
-const fs = require('fs')
-const glob = require('glob')
-const path = require("path");
+import fs from 'node:fs'
+import { glob } from 'glob'
+import path from 'node:path'
+import minimist from 'minimist'
 
 class JsonToClass {
   constructor (config) {
@@ -9,9 +10,7 @@ class JsonToClass {
   }
   run() {
     const { basePath } = this.config
-    glob(`${basePath}/**/*.json`, {}, (err, files) => {
-      if (err) throw err
-
+    glob(`${basePath}/**/*.json`, {}).then((files) => {
       files.forEach(f => this.generate(f, fs.readFileSync(f, 'utf8')))
     })
   }
@@ -119,7 +118,7 @@ class JsonToClass2 extends JsonToClass {
   }
 }
 
-const argv = require('minimist')(process.argv.slice(2))
+const argv = minimist(process.argv.slice(2))
 const para = {
   basePath: argv.d || './',
   className: argv.n || '#Model',
